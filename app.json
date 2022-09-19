@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "syntaxError",
+    "slug": "syntaxError",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/base/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/base/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": { "fallbackToCacheTimeout": 0 },
+    "assetBundlePatterns": ["**/*"],
+    "ios": { "supportsTablet": true },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/base/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": { "favicon": "./assets/base/favicon.png" }
+  }
+}
