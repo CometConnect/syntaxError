@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import LangSelect from "../components/LangSelect";
 import styles from "../styles/pages/CreatePost";
-import { Language, Languages, Props } from "../types";
+import { Language, Languages, Props } from "../util";
 
 interface State {
   langSelect: boolean;

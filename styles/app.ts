@@ -1,4 +1,4 @@
-import { ImageS, rem, ViewS } from "../types"
+import { ImageS, rem, ViewS } from "../util"
 
 export default {
   container: {
@@ -6,12 +6,12 @@ export default {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: '#151515',
   },
   screen: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: '#151515',
     width: "100%",
   },
   nav: {

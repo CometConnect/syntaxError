@@ -1,30 +1,48 @@
+import { getAuth } from "firebase/auth";
 import React, { Component } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, View, Image } from "react-native";
 import styles from "../styles/pages/Profile";
-import { Props, State, Languages } from "../types";
+import { Props, getUserData, UserData, Languages } from "../util";
+
+interface State {
+  userData: UserData;
+}
 
 export default class CreatePost extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.state = {
+      userData: { description: "", favLang: Languages.PY },
+    };
+  }
+
+  componentDidMount(): void {
+    getUserData(getAuth().currentUser!).then((userData) =>
+      this.setState({ userData })
+    );
   }
 
   render(): React.ReactNode {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Profile</Text>
-        <View style={styles.pfp}> </View>
-        {/* <Image />  // TODO pfp */}
-        <View style={styles.langBadge(Languages.PY)}>
-          <Text style={styles.langText}>Python</Text>
-          {/* // TODO */}
+        <Image
+          style={styles.image}
+          source={{
+            uri: getAuth().currentUser!.photoURL!,
+          }}
+        />
+        <View style={styles.langBadge(this.state.userData.favLang)}>
+          <Text style={styles.langText}>
+            {this.state.userData.favLang.fullname}
+          </Text>
         </View>
         <TextInput
           style={styles.descriptionInput}
           numberOfLines={10}
-          placeholder="Describe Yourself"
+          placeholder={this.state.userData.description}
           editable={false}
         />
-        {/* // TODO fetch description and replace placeholder | editable on edit */}
       </View>
     );
   }

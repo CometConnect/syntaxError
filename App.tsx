@@ -1,11 +1,15 @@
+import "./database";
 import React, { Component } from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import styles from "./styles/app";
-import { Props } from "./types";
+import { Props } from "./util";
+import { getAuth, User } from "firebase/auth";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
+import Loading from "./components/Loading";
+import Login from "./components/Login";
 
 enum Hover {
   Home = "home",
@@ -16,15 +20,27 @@ enum Hover {
 type State = {
   currentComponent: Function;
   hover: Hover;
+  loading: boolean;
+  login: boolean;
 };
 
 export default class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      currentComponent: CreatePost,
+      currentComponent: Home,
       hover: Hover.Null,
+      loading: true,
+      login: false,
     };
+  }
+
+  componentDidMount(): void {
+    getAuth().onAuthStateChanged((user) => {
+      let output = { loading: false, login: false };
+      if (user) output.login = true;
+      this.setState(output);
+    });
   }
 
   Item(hover: Hover, component: Function): React.ReactNode {
@@ -42,6 +58,22 @@ export default class App extends Component<Props, State> {
   }
 
   render(): React.ReactNode {
+    if (this.state.loading)
+      return (
+        <View style={styles.container}>
+          <Loading />
+        </View>
+      );
+    if (!this.state.login)
+      return (
+        <View style={styles.container}>
+          <Login
+            loginStateUpdate={() => {
+              this.setState({ login: true });
+            }}
+          />
+        </View>
+      );
     return (
       <View style={styles.container}>
         <View style={styles.screen}>

@@ -1,4 +1,4 @@
-import { Language, rem, TextS, ViewS } from "../../types"
+import { ImageS, Language, rem, TextS, ViewS } from "../../util"
 
 export default {
   container: {
@@ -12,11 +12,11 @@ export default {
     color: "white",
     marginBottom: 0.5 * rem,
   },
-  pfp: {
+  image: {
+    width: 100,
+    height: 100,
+    alignSelf: "center",
     borderRadius: 100 * rem,
-    backgroundColor: "#d9d9d9",
-    width: 5 * rem,
-    height: 5 * rem,
     marginBottom: 0.5 * rem,
   },
   langBadge(lang) {
@@ -45,7 +45,7 @@ export default {
 } as {
   container: ViewS
   title: TextS
-  pfp: ViewS // TODO
+  image: ImageS
   langBadge: (lang: Language) => ViewS
   langText: TextS
   descriptionInput: TextS

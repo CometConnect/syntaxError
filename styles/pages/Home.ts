@@ -1,4 +1,4 @@
-import { ViewS, TextS, rem } from "../../types";
+import { ViewS, TextS, rem } from "../../util";
 
 export default {
   container: {

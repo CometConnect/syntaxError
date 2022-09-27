@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Image, TextInput, View } from "react-native";
 import styles from "../styles/components/Search";
-import { Props, State } from "../types";
+import { Props, State } from "../util";
 
 export default class Search extends Component<Props, State> {
   constructor(props: Props) {

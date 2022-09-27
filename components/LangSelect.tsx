@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import styles from "../styles/components/LangSelect";
-import { Language, Languages, State } from "../types";
+import { Language, Languages, State } from "../util";
 
 interface Props {
   langSelectUpdate: (lang: Language) => void;

@@ -1,4 +1,4 @@
-import { Language, rem, TextS, ViewS } from "../../types"
+import { Language, rem, TextS, ViewS } from "../../util"
 
 export default {
   container: {

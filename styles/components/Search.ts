@@ -1,4 +1,4 @@
-import { ImageS, rem, TextS, ViewS } from "../../types"
+import { ImageS, rem, TextS, ViewS } from "../../util"
 
 export default {
   box: {

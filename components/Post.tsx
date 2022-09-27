@@ -1,7 +1,8 @@
+import { getAuth } from "firebase/auth";
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import styles from "../styles/components/Post";
-import { State, PostInf } from "../types";
+import { State, PostInf, getLanguageFromLangs } from "../util";
 
 export default class Post extends Component<PostInf, State> {
   constructor(props: PostInf) {
@@ -9,7 +10,9 @@ export default class Post extends Component<PostInf, State> {
   }
 
   render(): React.ReactNode {
-    const { author, description, language, title } = this.props;
+    const { description, language: lang, title } = this.props;
+    const author = getAuth().currentUser!;
+    const language = getLanguageFromLangs(lang);
     return (
       <View style={styles.container}>
         <View style={styles.top}>
@@ -19,7 +22,7 @@ export default class Post extends Component<PostInf, State> {
           </View>
         </View>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{description.split("\n")[0]}...</Text>
+        <Text style={styles.description}>{description.slice(0, 20)}...</Text>
       </View>
     );
   }
