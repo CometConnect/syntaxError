@@ -5,9 +5,11 @@ import { Props, PostInf, getPosts } from "../util";
 
 import Search from "../components/Search";
 import Post from "../components/Post";
+import PostScreen from "../components/PostScreen";
 
 interface State {
   posts: PostInf[];
+  onPost: string | null;
 }
 
 export default class Home extends Component<Props, State> {
@@ -15,6 +17,7 @@ export default class Home extends Component<Props, State> {
     super(props);
     this.state = {
       posts: [],
+      onPost: null,
     };
   }
 
@@ -23,11 +26,25 @@ export default class Home extends Component<Props, State> {
   }
 
   render(): React.ReactNode {
+    if (this.state.onPost) {
+      return (
+        <PostScreen
+          id={this.state.onPost}
+          back={() => this.setState({ onPost: null })}
+        />
+      );
+    }
+
     return (
       <View style={styles.container}>
-        <Search />
+        <Search nav={this.props.nav} />
         {this.state.posts.map((item) => (
-          <Post {...item} />
+          <Post
+            screenMode={(id: string) => {
+              this.setState({ onPost: id });
+            }}
+            {...item}
+          />
         ))}
       </View>
     );

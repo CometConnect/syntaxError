@@ -29,10 +29,7 @@ export default class LangSelect extends Component<Props, State> {
   render(): React.ReactNode {
     return (
       <View style={styles.container}>
-        {Object.entries(Languages).map((rawLang) => {
-          const lang = rawLang[1];
-          return this.lang(lang);
-        })}
+        {Object.entries(Languages).map((rawLang) => this.lang(rawLang[1]))}
       </View>
     );
   }

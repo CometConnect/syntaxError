@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text } from "react-native";
-import { Props, rem, State } from "../util";
+import styles from "../styles/components/Loading";
+import { Props, State } from "../util";
 
 export default class Loading extends Component<Props, State> {
   constructor(props: Props) {
@@ -8,15 +9,6 @@ export default class Loading extends Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    return (
-      <Text
-        style={{
-          fontSize: 3 * rem,
-          color: "white",
-        }}
-      >
-        Loading
-      </Text>
-    );
+    return <Text style={styles.container}>Loading</Text>;
   }
 }

@@ -1,5 +1,5 @@
 import { User } from "firebase/auth"
-import { collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore"
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore"
 import { ImageStyle, StyleProp, TextStyle, ViewStyle } from "react-native"
 
 export type ViewS = StyleProp<ViewStyle>
@@ -8,8 +8,16 @@ export type ImageS = StyleProp<ImageStyle>
 
 export const rem = 16
 
-export type Props = {}
+export type Props = {
+  nav(screen: Screens): void
+}
 export type State = {}
+
+export enum Screens {
+  Home = "Home",
+  CreatePost = "CreatePost",
+  Profile = "Profile",
+}
 
 export type Language = {
   name: Langs,
@@ -29,7 +37,7 @@ export enum Langs {
   RUBY = "RUBY",
 }
 export const Languages = {
-  JS: { name: Langs.JS, color: "#fde51e", fullname: "Javascript" },
+  JS: { name: Langs.JS, color: "#a89813", fullname: "Javascript" },
   TS: { name: Langs.TS, color: "#2f74c0", fullname: "Typescript" },
   PY: { name: Langs.PY, color: "#366c9b", fullname: "Python" },
   CS: { name: Langs.CS, color: "#8e39a5", fullname: "C#" },
@@ -43,12 +51,20 @@ export const Languages = {
     [key in keyof typeof Langs]: Language
   }
 
-export interface PostInf {
-  id: string
+
+export interface Comment {
+  username: string,
+  comment: string
+}
+export interface PostInfInput {
   author: string
   language: Langs
   title: string
   description: string
+  comments: Comment[]
+}
+export interface PostInf extends PostInfInput {
+  id: string
 }
 
 export interface UserData {
@@ -81,4 +97,9 @@ export async function getPost(id: string): Promise<PostInf | null> {
   const data = await getDoc(doc(getFirestore(), 'posts', id));
   if (!data.exists()) return null;
   return data.data() as PostInf;
+}
+
+export async function postPost(data: PostInfInput): Promise<string> {
+  const response = await addDoc(collection(getFirestore(), "posts"), data)
+  return response.id
 }
