@@ -1,5 +1,5 @@
 import { User } from "firebase/auth"
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore"
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, setDoc } from "firebase/firestore"
 import { ImageStyle, StyleProp, TextStyle, ViewStyle } from "react-native"
 
 export type ViewS = StyleProp<ViewStyle>
@@ -54,16 +54,17 @@ export const Languages = {
 
 export interface Comment {
   username: string,
-  comment: string
+  comment: string,
+  uid: string
 }
-export interface PostInfInput {
+export interface PostInput {
   author: string
   language: Langs
   title: string
   description: string
   comments: Comment[]
 }
-export interface PostInf extends PostInfInput {
+export interface Post extends PostInput {
   id: string
 }
 
@@ -73,11 +74,16 @@ export interface UserData {
 }
 
 export function getLanguageFromLangs(lang: Langs): Language {
-  return Object.entries(Languages).filter((value) => value[1].name == lang)[0][1]
+  try {
+    return Object.entries(Languages).filter((value) => value[1].name == lang)[0][1];
+  }
+  catch {
+    return Languages.PY;
+  }
 }
 
-export async function getUserData(user: User): Promise<UserData> {
-  const rawData = await getDoc(doc(getFirestore(), 'users', user.uid));
+export async function getUserData(uid: string): Promise<UserData> {
+  const rawData = await getDoc(doc(getFirestore(), 'users', uid));
   if (!rawData.exists()) return { description: "", favLang: getLanguageFromLangs(Langs.PY) };
   const data = rawData.data() as { description: string, favLang: Langs };
   return {
@@ -86,20 +92,24 @@ export async function getUserData(user: User): Promise<UserData> {
   };
 }
 
-export async function getPosts(): Promise<PostInf[]> {
+export async function getPosts(): Promise<Post[]> {
   const rawData = await getDocs(query(collection(getFirestore(), "posts")));
-  const data: PostInf[] = [];
-  rawData.forEach(info => data.push({ id: info.id, ...info.data() } as PostInf));
+  const data: Post[] = [];
+  rawData.forEach(info => data.push({ id: info.id, ...info.data() } as Post));
   return data;
 }
 
-export async function getPost(id: string): Promise<PostInf | null> {
+export async function getPost(id: string): Promise<Post | null> {
   const data = await getDoc(doc(getFirestore(), 'posts', id));
   if (!data.exists()) return null;
-  return data.data() as PostInf;
+  return data.data() as Post;
 }
 
-export async function postPost(data: PostInfInput): Promise<string> {
+export async function postPost(data: PostInput): Promise<string> {
   const response = await addDoc(collection(getFirestore(), "posts"), data)
   return response.id
+}
+
+export async function postComment(postId: string, comments: Comment[]): Promise<void> {
+  await setDoc(doc(getFirestore(), "posts", postId), { comments }, { merge: true })
 }

@@ -1,22 +1,29 @@
-import { ImageS, Language, rem, TextS, ViewS } from "../../util"
+import { Language, rem, TextS, ViewS } from "../../util"
 
 export default {
   container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    width: "80%",
+    backgroundColor: "#3d3d3d",
+    padding: 1 * rem,
+    borderRadius: 1 * rem,
   },
-  title: {
-    fontSize: 3 * rem,
+  author: {
     color: "white",
-    marginBottom: 0.5 * rem,
   },
-  image: {
-    width: 100,
-    height: 100,
-    alignSelf: "center",
-    borderRadius: 100 * rem,
+  message: {
+    color: "white",
+    fontSize: 1.5 * rem,
+  },
+  profile: {
+    borderRadius: 1 * rem,
+    backgroundColor: "#202020",
+    padding: 1 * rem,
+    borderColor: "#934028",
+    borderWidth: 0.1 * rem,
+    alignItems: "center",
+  },
+  name: {
+    fontSize: 2 * rem,
+    color: "white",
     marginBottom: 0.5 * rem,
   },
   langBadge(lang) {
@@ -31,11 +38,7 @@ export default {
     color: "white",
     textAlign: "center",
   },
-  settings: {
-    width: 25,
-    height: 25,
-  },
-  descriptionInput: {
+  description: {
     backgroundColor: "#1e1e1e",
     borderColor: "#934028",
     borderWidth: 0.5 * rem,
@@ -48,10 +51,11 @@ export default {
   },
 } as {
   container: ViewS
-  title: TextS
-  image: ImageS
+  author: TextS
+  message: TextS
+  profile: ViewS
+  name: TextS
   langBadge: (lang: Language) => ViewS
   langText: TextS
-  settings: ImageS
-  descriptionInput: TextS
+  description: ViewS
 }

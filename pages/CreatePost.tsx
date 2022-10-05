@@ -30,6 +30,7 @@ export default class CreatePost extends Component<Props, State> {
     const { title, description, lang } = this.state;
     if (title === "" || description === "") {
       this.setState({ message: "Please fill in all the fields" });
+      return;
     }
 
     postPost({
@@ -39,7 +40,6 @@ export default class CreatePost extends Component<Props, State> {
       language: lang.name,
       comments: [],
     }).then((id) => {
-      console.log(id);
       this.props.nav(Screens.Home);
     });
   }

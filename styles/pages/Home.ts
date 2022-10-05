@@ -8,7 +8,11 @@ export default {
     color: "#fff",
     fontSize: 3 * rem,
   },
+  posts: {
+
+  },
 } as {
   container: ViewS;
   text: TextS;
+  posts: ViewS
 };

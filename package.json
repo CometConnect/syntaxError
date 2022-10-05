@@ -16,7 +16,7 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-markdown": "^8.0.3",
-    "react-native": "0.69.5",
+    "react-native": "0.69.6",
     "react-native-color-matrix-image-filters": "^5.2.14",
     "react-native-web": "~0.18.7"
   },

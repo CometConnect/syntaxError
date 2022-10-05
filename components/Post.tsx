@@ -2,7 +2,7 @@ import { getAuth } from "firebase/auth";
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import styles from "../styles/components/Post";
-import { State, PostInf, getLanguageFromLangs } from "../util";
+import { State, Post as PostInf, getLanguageFromLangs } from "../util";
 
 interface Props extends PostInf {
   screenMode(id: string): void;
