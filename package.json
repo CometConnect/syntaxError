@@ -6,13 +6,15 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "pub": "expo publish"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
     "expo": "~46.0.9",
     "expo-status-bar": "~1.4.0",
-    "firebase": "^9.10.0",
+    "expo-updates": "~0.14.6",
+    "firebase": "9.6.11",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-markdown": "^8.0.3",

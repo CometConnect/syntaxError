@@ -1,6 +1,11 @@
 import "./database";
 import React, { Component } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ImageSourcePropType,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import styles from "./styles/app";
 import { Props, Screens } from "./util";
 import { getAuth } from "firebase/auth";
@@ -50,7 +55,11 @@ export default class App extends Component<Props, State> {
     });
   }
 
-  Item(hover: Hover, component: Function): React.ReactNode {
+  Item(
+    hover: Hover,
+    component: Function,
+    image: ImageSourcePropType
+  ): React.ReactNode {
     const styleToApply =
       this.state.hover === hover ? styles.itemHover : styles.item;
     return (
@@ -59,7 +68,7 @@ export default class App extends Component<Props, State> {
         onFocus={() => this.setState({ hover })}
         onPress={() => this.setState({ currentComponent: component })}
       >
-        <Image source={require(`./assets/${hover}.svg`)} style={styles.icon} />
+        <Image source={image} style={styles.icon} />
       </TouchableOpacity>
     );
   }
@@ -103,9 +112,13 @@ export default class App extends Component<Props, State> {
           />
         </View>
         <View style={styles.nav}>
-          {this.Item(Hover.Home, Home)}
-          {this.Item(Hover.CreatePost, CreatePost)}
-          {this.Item(Hover.Profile, Profile)}
+          {this.Item(Hover.Home, Home, require(`./assets/home.svg`))}
+          {this.Item(
+            Hover.CreatePost,
+            CreatePost,
+            require(`./assets/create_post.svg`)
+          )}
+          {this.Item(Hover.Profile, Profile, require(`./assets/profile.svg`))}
         </View>
       </View>
     );
